@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="xHac0ZiDd8FvsS-QuF5tyvuAlJP7-Pc20Y7mfyNdP5c" />
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>David Albaney Matterson — Leadership Coach & Sales Advisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0d1b2e;
+      --navy-mid: #152540;
+      --navy-light: #1e3456;
+      --gold: #c9a84c;
+      --gold-light: #e2c97e;
+      --cream: #f5f0e8;
+      --white: #ffffff;
+      --gray: #8a9ab5;
+      --text: #d4dde8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(13,27,46,0.95), transparent);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 60px 80px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(201,168,76,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 10% 80%, rgba(30,52,86,0.8) 0%, transparent 50%),
+        linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    }
+
+    .hero-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      right: 38%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.3), transparent);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.4);
+      padding: 6px 16px;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 6vw, 78px);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.4s forwards;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.55s forwards;
+    }
+
+    .hero-desc {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text);
+      max-width: 520px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.7s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.85s forwards;
+    }
+
+    .btn-primary {
+      padding: 16px 36px;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      padding: 16px 36px;
+      border: 1px solid rgba(201,168,76,0.5);
+      color: var(--gold);
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      position: absolute;
+      right: 60px;
+      bottom: 80px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      opacity: 0;
+      animation: fadeLeft 0.8s ease 1s forwards;
+    }
+
+    .stat {
+      text-align: right;
+      border-right: 2px solid var(--gold);
+      padding-right: 20px;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 100px 60px;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      max-width: 600px;
+      margin-bottom: 24px;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 48px;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--navy-mid);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-text p {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .about-text p strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .about-right {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding-top: 8px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      min-width: 10px;
+      background: var(--gold);
+      margin-top: 6px;
+    }
+
+    .timeline-content strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .timeline-content span {
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    /* ── SERVICES ── */
+    .services {
+      background: var(--navy);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 0;
+    }
+
+    .services-wrapper {
+      padding: 100px 60px;
+      background: var(--navy);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 60px;
+    }
+
+    .service-card {
+      background: var(--navy-mid);
+      padding: 48px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { transform: translateY(-4px); }
+
+    .service-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      font-weight: 700;
+      color: rgba(201,168,76,0.12);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .service-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .service-text {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--gray);
+    }
+
+    /* ── QUOTE ── */
+    .quote-section {
+      background: var(--navy-light);
+      text-align: center;
+      padding: 100px 60px;
+    }
+
+    .big-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 3vw, 38px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--white);
+      max-width: 900px;
+      margin: 0 auto 32px;
+      line-height: 1.5;
+    }
+
+    .big-quote span { color: var(--gold); }
+
+    .quote-author {
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    /* ── SCHOOLS ── */
+    .schools-wrapper {
+      background: var(--navy-mid);
+      padding: 100px 60px;
+    }
+
+    .schools-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .schools-topics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 0;
+    }
+
+    .topic-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .topic-item::before {
+      content: '▸';
+      color: var(--gold);
+      font-size: 12px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── CONTACT ── */
+    .contact-wrapper {
+      background: var(--navy);
+      padding: 100px 60px;
+      text-align: center;
+    }
+
+    .contact-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2.5vw, 28px);
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,168,76,0.4);
+      padding-bottom: 4px;
+      margin: 40px 0 20px;
+      transition: border-color 0.3s;
+    }
+
+    .contact-email:hover { border-color: var(--gold); }
+
+    .contact-phone a { color: var(--white) !important; text-decoration: none !important; }
+    .contact-phone {
+      display: block;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 48px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #070f1a;
+      padding: 32px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer span {
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 0.08em;
+    }
+
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: var(--gold);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeLeft {
+      from { opacity: 0; transform: translateX(30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 120px 24px 160px; }
+      .hero-stats { right: 24px; bottom: 40px; }
+      section, .services-wrapper, .schools-wrapper, .contact-wrapper, .quote-section { padding: 80px 24px; }
+      .about-grid, .schools-intro { grid-template-columns: 1fr; gap: 48px; }
+      .services-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">D.A. Matterson</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#schools">Schools</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-line"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Leadership · Sales · Development</div>
+      <h1>David Albaney<span>Matterson</span></h1>
+      <p class="hero-subtitle">Revenue Leader &nbsp;·&nbsp; Leadership Coach &nbsp;·&nbsp; Motivational Speaker</p>
+      <p class="hero-desc">17 years building high-performance teams, inspiring individuals and turning potential into performance — in London's most competitive environments.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">Get In Touch</a>
+        <a href="#services" class="btn-secondary">What I Offer</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Professionals Coached</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">17</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">£42m</div>
+        <div class="stat-label">Revenue Managed</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-tag">My Story</div>
+        <h2 class="section-title">Built in the fire. Defined by the people.</h2>
+        <div class="section-divider"></div>
+        <p>I studied Business & Marketing at <strong>Oxford Brookes University</strong> before stepping onto one of London's most demanding graduate sales floors — and staying for a decade. From day one, I was immersed in the real world of high-performance sales: fast-paced, high-pressure and unforgiving.</p>
+        <p>Those years were spent in the fire. Fast-paced, high-pressure, relentless. But rather than simply surviving, I thrived — and more importantly, I learned how to help <em>others</em> thrive. From the very beginning, I was drawn to developing the people around me.</p>
+        <p>Over 17 years I have personally coached, developed and inspired <strong>over 500 individuals</strong> — from entry-level graduates to senior directors. What I am most proud of is not a revenue figure. It is my <strong>retention rate</strong>. In industries notorious for burnout and churn, my teams stayed, grew and won — because they felt genuinely respected and invested in.</p>
+      </div>
+      <div class="about-right">
+        <div class="section-tag">Career Journey</div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <strong>Oxford Brookes University</strong>
+            <span>BA Business & Marketing — graduated with honours</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <strong>London Sales Floor — A Decade in the Fire</strong>
+            <span>Graduate to Divisional Sales Director, building and coaching teams from day one</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <strong>Foxtons Group plc (LSE-listed)</strong>
+            <span>Head of £42m revenue division — promoted four times post-IPO</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <strong>David Matterson Coaching — Founder</strong>
+            <span>Fractional CRO, executive coach and keynote speaker · 2022–Present</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <div class="quote-section">
+    <p class="big-quote">"The most important investment any organisation can make is in its people. I have spent <span>17 years proving that</span> — and I am not done yet."</p>
+    <p class="quote-author">— David Albaney Matterson</p>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="services-wrapper" id="services">
+    <div style="max-width:1200px; margin:0 auto;">
+      <div class="section-tag">What I Do</div>
+      <h2 class="section-title">Three ways I can help you.</h2>
+      <div class="section-divider"></div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-number">01</div>
+          <h3 class="service-title">Sales Leadership</h3>
+          <p class="service-text">I build outbound sales engines from scratch — designing playbooks, developing reps, installing coaching cultures and driving consistent quota attainment. Available as Head of Sales, SDR Manager or fractional CRO for growing businesses.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-number">02</div>
+          <h3 class="service-title">Executive Coaching</h3>
+          <p class="service-text">One-to-one coaching for founders, sales leaders and high-potential individuals who want to break through performance plateaus, develop their leadership style and build the mindset to win consistently under pressure.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-number">03</div>
+          <h3 class="service-title">Schools & Young Adults</h3>
+          <p class="service-text">Bespoke leadership and personal development workshops for sixth form and secondary school students — built around real experience, honest storytelling and practical tools that young people carry with them for life.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCHOOLS -->
+  <div class="schools-wrapper" id="schools">
+    <div class="schools-intro">
+      <div>
+        <div class="section-tag">For Schools</div>
+        <h2 class="section-title">Inspiring the next generation of leaders.</h2>
+        <div class="section-divider"></div>
+        <p style="font-size:15px; font-weight:300; line-height:1.9; color:var(--text); margin-bottom:24px;">I have spent 17 years developing young professionals from their very first day in a high-performance environment. I understand what young people need to hear — and more importantly, how to make it land. I connect with them honestly, energetically and with stories that are completely real.</p>
+        <p style="font-size:15px; font-weight:300; line-height:1.9; color:var(--text);">My sessions are high-energy, story-driven and leave students genuinely motivated to raise their own standards. Available as half-day workshops, full-day programmes or ongoing termly engagements.</p>
+        <br>
+        <a href="#contact" class="btn-primary" style="display:inline-block; margin-top:16px;">Enquire Now</a>
+      </div>
+      <div>
+        <div class="section-tag">Session Topics</div>
+        <div class="schools-topics">
+          <div class="topic-item">Building unshakeable self-confidence</div>
+          <div class="topic-item">The art of communication</div>
+          <div class="topic-item">Leadership at any age</div>
+          <div class="topic-item">Resilience under pressure</div>
+          <div class="topic-item">Goal setting & accountability</div>
+          <div class="topic-item">Making a lasting impression</div>
+          <div class="topic-item">Owning your future</div>
+          <div class="topic-item">The winning mindset</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-wrapper" id="contact">
+    <div class="contact-inner">
+      <div class="section-tag">Get In Touch</div>
+      <h2 class="section-title" style="margin:0 auto 24px; text-align:center;">Let's start a conversation.</h2>
+      <div class="section-divider" style="margin:0 auto 32px;"></div>
+      <p style="font-size:16px; font-weight:300; line-height:1.8; color:var(--text);">Whether you are a school looking to inspire your sixth formers, a business looking to accelerate your sales function, or an individual ready to take the next step — I would love to hear from you.</p>
+      <a href="/cdn-cgi/l/email-protection#6c080d1a0508010d1818091e1f03021b031e072c0b010d0500420f0301" class="contact-email"><span class="__cf_email__" data-cfemail="ff9b9e89969b929e8b8b9a8d8c909188908d94bf98929e9693d19c9092">[email&#160;protected]</span></a>
+ 
